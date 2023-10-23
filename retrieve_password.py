@@ -20,10 +20,12 @@ class RetrievePasswordWindow(tk.Toplevel):
         self.app_password = "Password"
 
 
+    # Sub window destroy OR closing work is done here
     def destroyRetrievewindow(self, w):
         self.destroy()
 
 
+    #retrieving password fields work is done here
     def retrievePassFields(self):
         label = tk.Label(self, text="This is a Retrieve Password Window", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         label.grid(row=0, column=1)

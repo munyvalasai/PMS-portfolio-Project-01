@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from PIL import ImageTk, Image
 
 import random
 
@@ -24,7 +25,7 @@ class PasswordSaveWindow(tk.Toplevel):
 
 
 
-
+    # Password generating work
     def generate_password(self):
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ]
         symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '+']
@@ -43,10 +44,12 @@ class PasswordSaveWindow(tk.Toplevel):
         self.password_entry.delete(0, tk.END)
         self.password_entry.insert(0, password)
 
+    # Sub window destroy OR closing work is done here
     def destroySaveWindow(self, w):
         self.destroy()
 
 
+    # Data saving into file works goes here
     def storeData(self):
 
         app_name = self.app_name_entry.get()
@@ -65,14 +68,11 @@ class PasswordSaveWindow(tk.Toplevel):
                 #     website_entry.delete(0, tk.END)
                 #     password_entry.delete(0, tk.END)
 
+
+    # Creating password saving fields here
     def createFields(self):
         label = tk.Label(self, text="This is a Save Password Window", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         label.grid(row=0, column=1)
-
-        # canvas1 = tk.Canvas(self, height=100, width=100, bg=BG_COLR, highlightthickness=0)
-        # logo1 = tk.PhotoImage(file="logo1.png")
-        # canvas1.create_image(20, 20, image=logo1)
-        # canvas1.grid(row=1, column=1)
 
         app_name_label = tk.Label(self, text="App Name: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         app_name_label.grid(row=1, column=0)
@@ -99,6 +99,12 @@ class PasswordSaveWindow(tk.Toplevel):
         back_button.grid(row=6, column=0)
         save_password = tk.Button(self, text="Save", command=self.storeData, width=10, bg=BUTTON_BG_COLR, font=BUTTON_FONT)
         save_password.grid(row=6, column=1)
+
+        # canvas1 = tk.Canvas(self, height=100, width=100, bg=BG_COLR, highlightthickness=0)
+        # logo1 = ImageTk.PhotoImage(Image.open("logo.png"))
+        # image2 = canvas1.create_image(20, 20, anchor='nw', image=logo1)
+        # canvas1.grid(row=7, column=1)
+
 
 
 
