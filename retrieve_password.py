@@ -48,6 +48,10 @@ class RetrievePasswordWindow(tk.Toplevel):
         app_name_entry = tk.Entry(self, width=40)
         app_name_entry.grid(row=2, column=1, columnspan=2)
 
+        # # Search Button
+        # search_btn = tk.Button(self, text="Search", width=10)
+        # search_btn.grid(row=2, column=2)
+
         space_label2 = tk.Label(self, bg=BG_COLR)
         space_label2.grid(row=5, column=1)
 
