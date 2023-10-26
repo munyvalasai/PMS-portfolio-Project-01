@@ -18,13 +18,14 @@ class PasswordUpdateWindow(tk.Toplevel):
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
 
 
-    # Sub window destroy OR closing work is done here
+
     def destroyUpdatewindow(self, w):
+        """ Sub window destroy OR closing work is done here """
         self.destroy()
 
 
-    # Creating password updating fields here
     def createFieldsForUpdate(self):
+        """ Creating password updating fields here """
         label = tk.Label(self, text="This is a Update Password Window", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         label.grid(row=0, column=1)
 

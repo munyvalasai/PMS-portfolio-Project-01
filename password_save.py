@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from PIL import ImageTk, Image
+# from PIL import ImageTk, Image
+import json
 
 import random
 
@@ -25,8 +26,8 @@ class PasswordSaveWindow(tk.Toplevel):
 
 
 
-    # Password generating work
     def generate_password(self):
+        """ Password generating work done here """
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ]
         symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '+']
         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
@@ -44,14 +45,14 @@ class PasswordSaveWindow(tk.Toplevel):
         self.password_entry.delete(0, tk.END)
         self.password_entry.insert(0, password)
 
-    # Sub window destroy OR closing work is done here
+
     def destroySaveWindow(self, w):
+        """ Sub window destroy OR closing work is done here """
         self.destroy()
 
 
-    # Data saving into file works goes here
     def storeData(self):
-
+        """ Data saving into file works goes here """
         app_name = self.app_name_entry.get()
         user_name = self.username_entry.get()
         password = self.password_entry.get()
@@ -62,15 +63,42 @@ class PasswordSaveWindow(tk.Toplevel):
             is_okay = messagebox.askokcancel(title=app_name+" Information ", message=f"App Name : {app_name}\nUser Name : {user_name}\n"
                                                                      f"\nPassword : {password} \n \n Are you confirm to save")
             if is_okay:
-                print("Done")
+                new_json_data = {
+                    app_name: {
+                        "email": user_name,
+                        "password": password,
+                    }
+                }
+
+                try:
+                    with open("data.json", "r") as data_file:  # through this file closed automatically
+                        # Reading old data
+                        data = json.load(data_file)
+                except:
+                    with open("data.json", "w") as data_file:
+                        # Storing updated data
+                        json.dump(new_json_data, data_file, indent=4)
+                else:
+                    # Updating old with new data
+                    data.update(new_json_data)
+                    with open("data.json", "w") as data_file:
+                        # Storing updated data
+                        json.dump(data, data_file, indent=4)  # this one is used to write the data
+
+                finally:
+                    self.app_name_entry.delete(0, tk.END)
+                    self.username_entry.delete(0, tk.END)
+                    self.password_entry.delete(0, tk.END)
+                    messagebox.showinfo(title="Success!", message=f"{app_name}'s Data Stored Successfully!... ")
+                # print("Done")
                 # with open("data.txt", "a") as data_file:  # through this file closed automatically
                 #     data_file.write(f"{website} | {email} | {password}\n")
                 #     website_entry.delete(0, tk.END)
                 #     password_entry.delete(0, tk.END)
 
 
-    # Creating password saving fields here
     def createFields(self):
+        """ Creating password saving fields here """
         label = tk.Label(self, text="This is a Save Password Window", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         label.grid(row=0, column=1)
 

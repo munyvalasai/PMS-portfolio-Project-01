@@ -6,6 +6,9 @@ from password_save import PasswordSaveWindow
 from retrieve_password import RetrievePasswordWindow
 from password_update import PasswordUpdateWindow
 
+top = None
+counter = 1
+root = None
 
 # Label setting
 TEXT_COLOR = "#dbff00"
@@ -19,8 +22,19 @@ BUTTON_FONT = ("Courier New", 18, "normal")
 
 def openSavePasswordWindow():
     """ Open Password Create window functionality done here!... """
-    create_pass_window = PasswordSaveWindow()
-    create_pass_window.createFields()
+    global top
+    global counter
+
+    if (counter < 2):
+        create_pass_window = PasswordSaveWindow(top)
+        # create_pass_window.destroySaveWindow()
+        create_pass_window.createFields()
+        counter += 1
+    else:
+        print("Window is already opened")
+        # print(counter)
+
+
 
 
 def openRetrievePassWindow():
