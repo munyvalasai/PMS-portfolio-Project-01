@@ -19,9 +19,10 @@ class RetrievePasswordWindow(tk.Toplevel):
         super().__init__(*args, **kwargs)
         self.title("Retrieve Password Window")
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
-        self.user_name = ""
-        self.app_password = ""
+
         self.app_name_entry = ''
+        self.username_label = ''
+        self.password_label = ''
 
     def find_password(self):
         """ Function to get Password of website """
@@ -35,22 +36,15 @@ class RetrievePasswordWindow(tk.Toplevel):
             if website in data:
                 email = data[website]["email"]
                 password = data[website]["password"]
-                self.user_name = email
-                self.app_password = password
 
-                username_label = tk.Label(self, text=f"UserName: {self.user_name}", bg=BG_COLR, foreground=TEXT_COLOR,
-                                          font=FONT)
-                username_label.grid(row=3, column=1)
-                password_label = tk.Label(self, text=f"Password: {self.app_password}", bg=BG_COLR,
-                                          foreground=TEXT_COLOR, font=FONT)
-                password_label.grid(row=4, column=1)
+                self.username_label.config(text=f"UserName: {email}")
+                self.password_label.config(text=f"Password: {password}")
 
-                # messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
             else:
                 messagebox.showerror(title="Error", message=f"No details found for the {website}.")
 
-        finally:
-            self.app_name_entry.delete(0, tk.END)
+        # finally:
+        #     self.app_name_entry.delete(0, tk.END)
 
 
     def destroyRetrievewindow(self, w):
@@ -68,10 +62,10 @@ class RetrievePasswordWindow(tk.Toplevel):
 
         app_name_label = tk.Label(self, text="App Name: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         app_name_label.grid(row=2, column=0)
-        username_label = tk.Label(self, text=f"UserName: {self.user_name}", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
-        username_label.grid(row=3, column=1)
-        password_label = tk.Label(self, text=f"Password: {self.app_password}", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
-        password_label.grid(row=4, column=1)
+        self.username_label = tk.Label(self, text=f"UserName: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
+        self.username_label.grid(row=3, column=1)
+        self.password_label = tk.Label(self, text=f"Password: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
+        self.password_label.grid(row=4, column=1)
 
         self.app_name_entry = tk.Entry(self, width=40)
         self.app_name_entry.grid(row=2, column=1, columnspan=2)
