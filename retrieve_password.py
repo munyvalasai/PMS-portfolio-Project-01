@@ -49,6 +49,9 @@ class RetrievePasswordWindow(tk.Toplevel):
             else:
                 messagebox.showerror(title="Error", message=f"No details found for the {website}.")
 
+        finally:
+            self.app_name_entry.delete(0, tk.END)
+
 
     def destroyRetrievewindow(self, w):
         """ Sub window destroy OR closing work is done here """
@@ -60,27 +63,18 @@ class RetrievePasswordWindow(tk.Toplevel):
         label = tk.Label(self, text="This is a Retrieve Password Window", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         label.grid(row=0, column=1)
 
-        # canvas1 = tk.Canvas(self, height=40, width=40, bg=BG_COLR, highlightthickness=0)
-        # logo1 = tk.PhotoImage(file="logo1.png")
-        # canvas1.create_image(5, 5, image=logo1)
-        # canvas1.grid(row=1, column=1)
-
         space_label2 = tk.Label(self, bg=BG_COLR)
         space_label2.grid(row=1, column=1)
 
         app_name_label = tk.Label(self, text="App Name: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         app_name_label.grid(row=2, column=0)
-        username_label = tk.Label(self, text=f"UserName: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
+        username_label = tk.Label(self, text=f"UserName: {self.user_name}", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         username_label.grid(row=3, column=1)
-        password_label = tk.Label(self, text=f"Password: ", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
+        password_label = tk.Label(self, text=f"Password: {self.app_password}", bg=BG_COLR, foreground=TEXT_COLOR, font=FONT)
         password_label.grid(row=4, column=1)
-        #
+
         self.app_name_entry = tk.Entry(self, width=40)
         self.app_name_entry.grid(row=2, column=1, columnspan=2)
-
-        # # Search Button
-        # search_btn = tk.Button(self, text="Search", width=10)
-        # search_btn.grid(row=2, column=2)
 
         space_label2 = tk.Label(self, bg=BG_COLR)
         space_label2.grid(row=5, column=1)

@@ -1,14 +1,26 @@
 {
+    "Facebook": {
+        "email": "munnyvalasai@gmail.com",
+        "password": "123456"
+    },
     "Linkedin": {
         "email": "manesh@gmail.com",
-        "password": "U2(T75?nNb"
+        "password": "Man@123"
     },
-    "Facebook": {
+    "Daraz": {
         "email": "manesh@gmail.com",
-        "password": "1Hh6)1?pMk"
+        "password": "A)@77Lf5Cv"
     },
-    "Twitter": {
+    "Linkedin7": {
         "email": "manesh@gmail.com",
-        "password": "*Nf^6aT81F"
+        "password": "0ma@c$K11B"
+    },
+    "Linkedin73": {
+        "email": "manesh@gmail.com",
+        "password": "V87CCF%)6O"
+    },
+    "Facebook1": {
+        "email": "manesh@gmail.com",
+        "password": "nY975ch@@c"
     }
 }

@@ -24,7 +24,6 @@ def openSavePasswordWindow():
     """ Open Password Create window functionality done here!... """
     global top
     global counter
-
     if (counter < 2):
         create_pass_window = PasswordSaveWindow(top)
         # create_pass_window.destroySaveWindow()
@@ -33,6 +32,10 @@ def openSavePasswordWindow():
     else:
         print("Window is already opened")
         # print(counter)
+
+    # create_pass_window = PasswordSaveWindow(top)
+    # # create_pass_window.destroySaveWindow()
+    # create_pass_window.createFields()
 
 
 

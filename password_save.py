@@ -60,42 +60,46 @@ class PasswordSaveWindow(tk.Toplevel):
         if len(app_name) == 0 or len(user_name) == 0 or len(password) == 0:
             messagebox.showerror(title="Oops!", message="Please make sure you haven't left any field empty. ")
         else:
-            is_okay = messagebox.askokcancel(title=app_name+" Information ", message=f"App Name : {app_name}\nUser Name : {user_name}\n"
-                                                                     f"\nPassword : {password} \n \n Are you confirm to save")
-            if is_okay:
-                new_json_data = {
-                    app_name: {
-                        "email": user_name,
-                        "password": password,
-                    }
+            new_json_data = {
+                app_name: {
+                    "email": user_name,
+                    "password": password,
                 }
+            }
 
-                try:
-                    with open("data.json", "r") as data_file:  # through this file closed automatically
-                        # Reading old data
-                        data = json.load(data_file)
-                except:
-                    with open("data.json", "w") as data_file:
-                        # Storing updated data
-                        json.dump(new_json_data, data_file, indent=4)
+            try:
+                with open('data.json', 'r') as data_file:
+                    data = json.load(data_file)
+
+                if app_name in data:
+                    messagebox.askokcancel(title="Error", message=f"Website already exist with that name: {app_name} .")
                 else:
-                    # Updating old with new data
-                    data.update(new_json_data)
-                    with open("data.json", "w") as data_file:
-                        # Storing updated data
-                        json.dump(data, data_file, indent=4)  # this one is used to write the data
+                    is_okay = messagebox.askokcancel(title=app_name + " Information ",
+                                                     message=f"App Name : {app_name}\nUser Name : {user_name}\n"
+                                                             f"\nPassword : {password} \n \n Are you confirm to save")
+                    if is_okay:
+                        try:
+                            with open("data.json", "r") as data_file:  # through this file closed automatically
+                                # Reading old data
+                                data = json.load(data_file)
+                        except:
+                            with open("data.json", "w") as data_file:
+                                # Storing updated data
+                                json.dump(new_json_data, data_file, indent=4)
+                        else:
+                            # Updating old with new data
+                            data.update(new_json_data)
+                            with open("data.json", "w") as data_file:
+                                # Storing updated data
+                                json.dump(data, data_file, indent=4)  # this one is used to write the data
 
-                finally:
-                    self.app_name_entry.delete(0, tk.END)
-                    self.username_entry.delete(0, tk.END)
-                    self.password_entry.delete(0, tk.END)
-                    messagebox.showinfo(title="Success!", message=f"{app_name}'s Data Stored Successfully!... ")
-                # print("Done")
-                # with open("data.txt", "a") as data_file:  # through this file closed automatically
-                #     data_file.write(f"{website} | {email} | {password}\n")
-                #     website_entry.delete(0, tk.END)
-                #     password_entry.delete(0, tk.END)
-
+                        finally:
+                            self.app_name_entry.delete(0, tk.END)
+                            self.username_entry.delete(0, tk.END)
+                            self.password_entry.delete(0, tk.END)
+                            messagebox.showinfo(title="Success!", message=f"{app_name}'s Data Stored Successfully!... ")
+            except FileNotFoundError:
+                messagebox.showinfo(title="File Not Found!", message="First Create file with name:  data.json")
 
     def createFields(self):
         """ Creating password saving fields here """
@@ -127,12 +131,6 @@ class PasswordSaveWindow(tk.Toplevel):
         back_button.grid(row=6, column=0)
         save_password = tk.Button(self, text="Save", command=self.storeData, width=10, bg=BUTTON_BG_COLR, font=BUTTON_FONT)
         save_password.grid(row=6, column=1)
-
-        # canvas1 = tk.Canvas(self, height=100, width=100, bg=BG_COLR, highlightthickness=0)
-        # logo1 = ImageTk.PhotoImage(Image.open("logo.png"))
-        # image2 = canvas1.create_image(20, 20, anchor='nw', image=logo1)
-        # canvas1.grid(row=7, column=1)
-
 
 
 
