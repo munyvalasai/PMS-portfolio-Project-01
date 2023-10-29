@@ -4,6 +4,9 @@ from tkinter import ttk
 import json
 from tkinter import messagebox
 
+from encrypt_password import EncryptDecryptPassword
+
+
 # Label setting
 TEXT_COLOR = "#dbff00"
 BG_COLR = "#5A5A5A"
@@ -36,6 +39,9 @@ class RetrievePasswordWindow(tk.Toplevel):
             if website in data:
                 email = data[website]["email"]
                 password = data[website]["password"]
+
+                obj = EncryptDecryptPassword(text=password, shift_key=2345)
+                password = obj.decryptPassword()
 
                 self.username_label.config(text=f"UserName: {email}")
                 self.password_label.config(text=f"Password: {password}")

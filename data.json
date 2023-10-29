@@ -22,5 +22,17 @@
     "Facebook1": {
         "email": "manesh@gmail.com",
         "password": "nY975ch@@c"
+    },
+    "Dummy Site": {
+        "email": "manesh@gmail.com",
+        "password": "ILB8@5N(V3"
+    },
+    "Dummy2": {
+        "email": "manesh@gmail.com",
+        "password": "Rfsjxm@123456"
+    },
+    "Test Web": {
+        "email": "manesh@gmail.com",
+        "password": "Rfsjxm12345"
     }
 }

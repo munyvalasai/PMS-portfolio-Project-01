@@ -4,6 +4,8 @@ from tkinter import ttk
 import json
 from tkinter import messagebox
 
+from encrypt_password import EncryptDecryptPassword
+
 # Label setting
 TEXT_COLOR = "#dbff00"
 BG_COLR = "#5A5A5A"
@@ -48,7 +50,13 @@ class PasswordUpdateWindow(tk.Toplevel):
                     email = data[app_name]['email']
                     password = data[app_name]['password']
 
+                    obj = EncryptDecryptPassword(text=password, shift_key=2345)
+                    password = obj.decryptPassword()
+
                     if email == username and password == old_pass:
+
+                        obj2 = EncryptDecryptPassword(text=new_pass, shift_key=2345)
+                        new_pass = obj2.encryyptPassword()
 
                         data[app_name]['password'] = new_pass
                         with open("data.json", "w") as a_file:

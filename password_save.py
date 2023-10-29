@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-# from PIL import ImageTk, Image
-import json
 
+import json
 import random
+
+from encrypt_password import EncryptDecryptPassword
+
 
 # Label setting
 TEXT_COLOR = "#dbff00"
@@ -45,11 +47,9 @@ class PasswordSaveWindow(tk.Toplevel):
         self.password_entry.delete(0, tk.END)
         self.password_entry.insert(0, password)
 
-
     def destroySaveWindow(self, w):
         """ Sub window destroy OR closing work is done here """
         self.destroy()
-
 
     def storeData(self):
         """ Data saving into file works goes here """
@@ -60,6 +60,10 @@ class PasswordSaveWindow(tk.Toplevel):
         if len(app_name) == 0 or len(user_name) == 0 or len(password) == 0:
             messagebox.showerror(title="Oops!", message="Please make sure you haven't left any field empty. ")
         else:
+
+            obj = EncryptDecryptPassword(text=password, shift_key=2345)
+            password = obj.encryyptPassword()
+
             new_json_data = {
                 app_name: {
                     "email": user_name,
