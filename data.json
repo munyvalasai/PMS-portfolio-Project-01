@@ -1,38 +1,6 @@
 {
     "Facebook": {
-        "email": "munnyvalasai@gmail.com",
-        "password": "123456"
-    },
-    "Linkedin": {
         "email": "manesh@gmail.com",
-        "password": "Man@123"
-    },
-    "Daraz": {
-        "email": "manesh@gmail.com",
-        "password": "A)@77Lf5Cv"
-    },
-    "Linkedin7": {
-        "email": "manesh@gmail.com",
-        "password": "0ma@c$K11B"
-    },
-    "Linkedin73": {
-        "email": "manesh@gmail.com",
-        "password": "V87CCF%)6O"
-    },
-    "Facebook1": {
-        "email": "manesh@gmail.com",
-        "password": "nY975ch@@c"
-    },
-    "Dummy Site": {
-        "email": "manesh@gmail.com",
-        "password": "ILB8@5N(V3"
-    },
-    "Dummy2": {
-        "email": "manesh@gmail.com",
-        "password": "Rfsjxm@123456"
-    },
-    "Test Web": {
-        "email": "manesh@gmail.com",
-        "password": "Rfsjxm12345"
+        "password": "Rfsjxm123"
     }
 }

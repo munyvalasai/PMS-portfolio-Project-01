@@ -3,8 +3,9 @@ from tkinter import ttk, messagebox
 
 import json
 import random
+import os
 
-from encrypt_password import EncryptDecryptPassword
+from encrypt_decrypt_password import EncryptDecryptPassword
 
 
 # Label setting
@@ -19,12 +20,13 @@ BUTTON_FONT = ("Courier New", 12, "normal")
 
 class PasswordSaveWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(*args)
         self.title("Save Password Window")
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
         self.password_entry = ""
         self.app_name_entry = ""
         self.username_entry = ""
+        self.counter = kwargs["counter"] + 1
 
 
 
@@ -36,7 +38,7 @@ class PasswordSaveWindow(tk.Toplevel):
                    't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-        pass_letters = [random.choice(letters) for _ in range(8, 13)]
+        pass_letters = [random.choice(letters) for _ in range(8, 14)]
         pass_symbols = [random.choice(symbols) for _ in range(2, 4)]
         pass_numbers = [random.choice(numbers) for _ in range(2, 5)]
 
@@ -50,16 +52,14 @@ class PasswordSaveWindow(tk.Toplevel):
     def destroySaveWindow(self, w):
         """ Sub window destroy OR closing work is done here """
         self.destroy()
+        self.counter -= 1
 
-    def storeData(self):
-        """ Data saving into file works goes here """
-        app_name = self.app_name_entry.get()
-        user_name = self.username_entry.get()
-        password = self.password_entry.get()
-
-        if len(app_name) == 0 or len(user_name) == 0 or len(password) == 0:
-            messagebox.showerror(title="Oops!", message="Please make sure you haven't left any field empty. ")
-        else:
+    def savingFunctionality(self, file_name, app_name, user_name, password):
+        """ Just saving functionality of user's website data """
+        is_okay = messagebox.askokcancel(title=app_name + " Information ",
+                                         message=f"App Name : {app_name}\nUser Name : {user_name}\n"
+                                                 f"\nPassword : {password} \n \n Are you confirm to save")
+        if is_okay:
 
             obj = EncryptDecryptPassword(text=password, shift_key=2345)
             password = obj.encryyptPassword()
@@ -72,38 +72,57 @@ class PasswordSaveWindow(tk.Toplevel):
             }
 
             try:
-                with open('data.json', 'r') as data_file:
+                with open(file_name, "r") as data_file:  # through this file closed automatically
+                    # Reading old data
+                    data = json.load(data_file)
+            except:
+                with open(file_name, "w") as data_file:
+                    # Storing updated data
+                    json.dump(new_json_data, data_file, indent=4)
+            else:
+                # Updating old with new data
+                data.update(new_json_data)
+                with open(file_name, "w") as data_file:
+                    # Storing updated data
+                    json.dump(data, data_file, indent=4)  # this one is used to write the data
+
+            finally:
+                self.app_name_entry.delete(0, tk.END)
+                self.username_entry.delete(0, tk.END)
+                self.password_entry.delete(0, tk.END)
+                messagebox.showinfo(title="Success!",
+                                    message=f"{app_name}'s Data Stored Successfully!... ")
+
+
+    def storeData(self):
+        """ Data saving into file works goes here """
+        app_name = self.app_name_entry.get()
+        user_name = self.username_entry.get()
+        password = self.password_entry.get()
+
+        if len(app_name) == 0 or len(user_name) == 0 or len(password) == 0:
+            messagebox.showerror(title="Oops!", message="Please make sure you haven't left any field empty. ")
+        else:
+
+            file_name = "data.json"
+
+            # if file not exists then this one create the file
+            if not os.path.exists(file_name):
+                open(file_name, "w")
+
+            # if file size is 0 then this code works
+            if os.path.getsize(file_name) == 0:
+                self.savingFunctionality(file_name, app_name, user_name, password)
+
+            else:
+                with open(file_name, 'r') as data_file:
                     data = json.load(data_file)
 
                 if app_name in data:
-                    messagebox.askokcancel(title="Error", message=f"Website already exist with that name: {app_name} .")
+                    messagebox.askokcancel(title="Error",
+                                           message=f"Website already exist with that name: {app_name}, Please try another one!...")
                 else:
-                    is_okay = messagebox.askokcancel(title=app_name + " Information ",
-                                                     message=f"App Name : {app_name}\nUser Name : {user_name}\n"
-                                                             f"\nPassword : {password} \n \n Are you confirm to save")
-                    if is_okay:
-                        try:
-                            with open("data.json", "r") as data_file:  # through this file closed automatically
-                                # Reading old data
-                                data = json.load(data_file)
-                        except:
-                            with open("data.json", "w") as data_file:
-                                # Storing updated data
-                                json.dump(new_json_data, data_file, indent=4)
-                        else:
-                            # Updating old with new data
-                            data.update(new_json_data)
-                            with open("data.json", "w") as data_file:
-                                # Storing updated data
-                                json.dump(data, data_file, indent=4)  # this one is used to write the data
-
-                        finally:
-                            self.app_name_entry.delete(0, tk.END)
-                            self.username_entry.delete(0, tk.END)
-                            self.password_entry.delete(0, tk.END)
-                            messagebox.showinfo(title="Success!", message=f"{app_name}'s Data Stored Successfully!... ")
-            except FileNotFoundError:
-                messagebox.showinfo(title="File Not Found!", message="First Create file with name:  data.json")
+                    self.savingFunctionality(file_name, app_name, user_name, password)
 
     def createFields(self):
         """ Creating password saving fields here """
@@ -130,6 +149,9 @@ class PasswordSaveWindow(tk.Toplevel):
 
         space_label2 = tk.Label(self, bg=BG_COLR)
         space_label2.grid(row=5, column=1)
+
+        # Override the main close 'X' button
+        self.protocol("WM_DELETE_WINDOW", lambda: self.destroySaveWindow(tk.Toplevel(self)))
 
         back_button = tk.Button(self, text="Back", command=lambda: self.destroySaveWindow(tk.Toplevel(self)), width=10, bg=BUTTON_BG_COLR, font=BUTTON_FONT)
         back_button.grid(row=6, column=0)

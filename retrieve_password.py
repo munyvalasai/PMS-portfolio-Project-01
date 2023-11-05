@@ -4,7 +4,7 @@ from tkinter import ttk
 import json
 from tkinter import messagebox
 
-from encrypt_password import EncryptDecryptPassword
+from encrypt_decrypt_password import EncryptDecryptPassword
 
 
 # Label setting
@@ -19,9 +19,10 @@ BUTTON_FONT = ("Courier New", 12, "normal")
 
 class RetrievePasswordWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__(*args)
         self.title("Retrieve Password Window")
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
+        self.counter = kwargs["counter"] + 1
 
         self.app_name_entry = ''
         self.username_label = ''
@@ -56,6 +57,7 @@ class RetrievePasswordWindow(tk.Toplevel):
     def destroyRetrievewindow(self, w):
         """ Sub window destroy OR closing work is done here """
         self.destroy()
+        self.counter -= 1
 
 
     def retrievePassFields(self):
@@ -78,6 +80,9 @@ class RetrievePasswordWindow(tk.Toplevel):
 
         space_label2 = tk.Label(self, bg=BG_COLR)
         space_label2.grid(row=5, column=1)
+
+        # Override the main close 'X' button
+        self.protocol("WM_DELETE_WINDOW", lambda: self.destroyRetrievewindow(tk.Toplevel(self)))
 
         back_button = tk.Button(self, text="Back", command=lambda: self.destroyRetrievewindow(tk.Toplevel(self)), width=10, bg=BUTTON_BG_COLR, font=BUTTON_FONT)
         back_button.grid(row=6, column=0)
