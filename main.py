@@ -6,10 +6,6 @@ from password_save import PasswordSaveWindow
 from retrieve_password import RetrievePasswordWindow
 from password_update import PasswordUpdateWindow
 
-counter = 0
-root = None
-obj = None
-
 # Label setting
 TEXT_COLOR = "#dbff00"
 BG_COLR = "#5A5A5A"
@@ -18,6 +14,10 @@ FONT = ("Courier New", 16, "bold")
 # Button setting
 BUTTON_BG_COLR = "#90DDF1"
 BUTTON_FONT = ("Courier New", 18, "normal")
+
+counter = 0
+root = None
+obj = None
 
 
 def openSavePasswordWindow():
@@ -39,12 +39,6 @@ def openSavePasswordWindow():
             create_pass_window.createFields()
             counter += 1
             obj = create_pass_window
-
-    # create_pass_window = PasswordSaveWindow(top)
-    # # create_pass_window.destroySaveWindow()
-    # create_pass_window.createFields()
-
-
 
 
 def openRetrievePassWindow():
