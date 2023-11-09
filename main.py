@@ -93,6 +93,11 @@ def exitWindow():
 
 # Setting up the root screen like title, minsize etc
 root = tk.Tk()        # tk.Tk(className="My first GIU Program in Tkinter") (Passing the title)
+
+#Icon Changing work here
+ico = tk.PhotoImage(file="icon.png")
+root.wm_iconphoto(False, ico)
+
 root.title("Portfolio Project-01 in Tkinter")
 root.config(padx=10, pady=10)
 

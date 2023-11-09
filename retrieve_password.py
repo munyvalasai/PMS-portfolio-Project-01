@@ -21,6 +21,11 @@ class RetrievePasswordWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
         self.title("Retrieve Password Window")
+
+        # Icon Changing work here
+        ico = tk.PhotoImage(file="icon.png")
+        self.wm_iconphoto(False, ico)
+
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
         self.counter = kwargs["counter"] + 1
 

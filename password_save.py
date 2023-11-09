@@ -22,6 +22,11 @@ class PasswordSaveWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
         self.title("Save Password Window")
+
+        # Icon Changing work here
+        ico = tk.PhotoImage(file="icon.png")
+        self.wm_iconphoto(False, ico)
+
         self.config(width=400, height=400, bg=BG_COLR, pady=10, padx=10)
         self.password_entry = ""
         self.app_name_entry = ""
@@ -38,9 +43,9 @@ class PasswordSaveWindow(tk.Toplevel):
                    't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                    'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-        pass_letters = [random.choice(letters) for _ in range(8, 14)]
+        pass_letters = [random.choice(letters) for _ in range(8, 16)]
         pass_symbols = [random.choice(symbols) for _ in range(2, 4)]
-        pass_numbers = [random.choice(numbers) for _ in range(2, 5)]
+        pass_numbers = [random.choice(numbers) for _ in range(2, 4)]
 
         password_list = pass_letters + pass_symbols + pass_numbers
         random.shuffle(password_list)
