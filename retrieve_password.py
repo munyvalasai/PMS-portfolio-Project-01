@@ -53,6 +53,8 @@ class RetrievePasswordWindow(tk.Toplevel):
                 self.password_label.config(text=f"Password: {password}")
 
             else:
+                self.username_label.config(text=f"UserName: ")
+                self.password_label.config(text=f"Password: ")
                 messagebox.showerror(title="Error", message=f"No details found for the {website}.")
 
         # finally:
